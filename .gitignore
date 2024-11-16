@@ -1,0 +1,28 @@
+# Ignore the virtual environment folder
+new_env/
+
+# Ignore compiled Python files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Ignore IDE-specific files
+.vscode/
+.idea/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore Python package manager files
+*.egg-info/
+*.eggs
+dist/
+build/
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+
+# Ignore requirements if generated dynamically
+pip-log.txt
