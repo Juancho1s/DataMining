@@ -2,8 +2,8 @@
 #include <ArduinoJson.h>
 #include <string.h>
 
-const byte rxPin = A8;
-const byte txPin = A9;
+const byte rxPin = A0;
+const byte txPin = A1;
 const int Trig = A3;
 const int Echo = A2;
 const int PWM2A = 11;      //M1 motor
@@ -89,7 +89,7 @@ void loop() {
   BTSerial.print(output);
   BTSerial.println('>');  // End marker
 
-  delay(150);
+  delay(200);
 
   // Read and process incoming data from Python
   if (BTSerial.available()) {

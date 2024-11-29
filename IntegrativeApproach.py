@@ -50,7 +50,7 @@ def predict_speeds(inputs, explore=True):
 
     # Scale wheel speeds proportionally to averageSpeed (e.g., up to 255)
     max_wheel_speed = 200
-    speeds = {f"W{i+1}": max(100, int(averageSpeed * max_wheel_speed)) for i in range(4)}
+    speeds = {f"W{i+1}": max(140, int(averageSpeed * max_wheel_speed)) for i in range(4)}
 
     # Direction is scaled to [0, 9]
     speeds["D"] = int(predictions[-1] * 9)
