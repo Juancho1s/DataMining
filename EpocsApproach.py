@@ -10,7 +10,7 @@ from datetime import datetime
 import os
 
 # Paths and Constants
-MODEL_PATH = "./trained_maped_model.keras"
+MODEL_PATH = "./new_trained_maped_model.keras"
 MAP_SIZE = 20  # 20x20 grid
 GRID_RESOLUTION = 10  # Each cell is 10 cm
 BLUETOOTH_PORT = 'COM12'
@@ -111,8 +111,8 @@ def predict_speeds(inputs, explore=True):
     if explore:
         predictions += np.random.normal(0, 0.1, predictions.shape)
     predictions = np.clip(predictions, 0, 1)
-    speeds = {f"W{i+1}": int(predictions[i] * 200) for i in range(4)}
-    speeds["D"] = int(predictions[4] * 9)  # Direction
+    speeds = {f"W{i+1}": max(140, round((sum(predictions[0:3]) / 4 ) * 200)) for i in range(4)}
+    speeds["D"] = round(predictions[4] * 9)  # Direction
     return speeds, predictions
 
 
@@ -145,7 +145,8 @@ try:
     print("Bluetooth server running...")
     while True:
         if ser.in_waiting > 0:
-            incoming = ser.readline().decode('utf-8').strip()
+            incoming = ser.readline().decode('utf-8', errors='ignore').strip()
+
             if incoming.startswith('<') and incoming.endswith('>'):
                 try:
                     data = json.loads(incoming[1:-1])
@@ -169,6 +170,7 @@ try:
                     print(f"Processed: {data} -> {speeds}")
                 except Exception as e:
                     print(f"Error: {e}")
+    
 except KeyboardInterrupt:
     print("Shutting down...")
     model.save(MODEL_PATH)

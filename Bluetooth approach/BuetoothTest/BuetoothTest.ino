@@ -89,7 +89,7 @@ void loop() {
   BTSerial.print(output);
   BTSerial.println('>');  // End marker
 
-  delay(200);
+  delay(250);
 
   // Read and process incoming data from Python
   if (BTSerial.available()) {
